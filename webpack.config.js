@@ -8,6 +8,7 @@ const validate = require('webpack-validator');
 const parts = require('./libs/parts');
 
 const stylelint = require('stylelint');
+const autoprefixer = require('autoprefixer');
 
 
 const PATHS = {
@@ -28,7 +29,7 @@ const common = {
 			},
 			{
 				test: /\.css$/,
-				loaders: ['postcss'],
+				loaders: ['postcss?pack=linter'],
 				include: PATHS.app
 			}
 		],
@@ -48,11 +49,12 @@ const common = {
 		]
 	},
 	postcss: function () {
-		return [
-			stylelint({
+		return {
+			linter: [stylelint({
 				configFile: '.stylelintrc'
-			})
-		];
+			})],
+			defaults: [autoprefixer]
+		};
 	},
 
 	// Entry accepts a path or an object of entries.
