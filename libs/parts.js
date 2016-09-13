@@ -61,6 +61,11 @@ exports.setupCSS = function(paths) {
 					test: /\.css$/,
 					loaders: ['style', 'css', 'postcss'],
 					include: paths
+				},
+				{
+					test: /\.scss$/,
+					loaders: ['style', 'css', 'postcss', 'sass'],
+					include: paths
 				}
 			]
 		}
@@ -76,6 +81,11 @@ exports.extractCSS = function(paths) {
 				{
 					test: /\.css$/,
 					loader: ExtractTextPlugin.extract('style', 'css!postcss'),
+					include: paths
+				},
+				{
+					test: /\.scss$/,
+					loader: ExtractTextPlugin.extract('style', 'css!postcss!sass'),
 					include: paths
 				}
 			]

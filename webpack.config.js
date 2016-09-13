@@ -13,7 +13,7 @@ const autoprefixer = require('autoprefixer');
 
 const PATHS = {
 	app: path.join(__dirname, 'app'),
-	style: path.join(__dirname, 'app', 'main.css'),
+	style: path.join(__dirname, 'app', 'main.scss'),
 	build: path.join(__dirname, 'build')
 };
 
@@ -28,7 +28,7 @@ const common = {
 				include: PATHS.app
 			},
 			{
-				test: /\.css$/,
+				test: /\.s?css$/,
 				loaders: ['postcss?pack=linter'],
 				include: PATHS.app
 			}
