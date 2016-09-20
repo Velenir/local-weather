@@ -1,5 +1,4 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const merge = require('webpack-merge');
 
@@ -68,11 +67,6 @@ const common = {
 		path: PATHS.build,
 		filename: 'js/[name].js'
 	},
-	plugins: [
-		new HtmlWebpackPlugin({
-			title: 'Local Weather'
-		})
-	],
 
 	// Important! Do not remove ''. If you do, imports without
   // an extension won't work anymore!
@@ -95,7 +89,7 @@ case 'stats':
 			output: {
 				path: PATHS.build,
 				// Tweak this to match your GitHub project name
-				publicPath: '/webpack-demo/',
+				// publicPath: '/webpack-demo/',
 				filename: 'js/[name].[chunkhash].js',
 				// This is used for require.ensure. The setup
 				// will work without but this is useful to set.
@@ -116,6 +110,16 @@ case 'stats':
 			entries: ['react']
 		}),
 		parts.minify(),
+		parts.indexTemplate({
+			title: 'Local Weather',
+			template: '!!pug!./app/index.pug',
+			inject: false,
+			mobile: true,
+			appMountId: "mount",
+			inline: 'style',	// inline files from "style" chunk
+			excludeJSChunks: ['style']	// don't include specific chunks in scripts (when .js is a byproduct of already extracted .css)
+			// excludeJSWithCSS: true	// don't include any chunks with css in scripts (when .js is a byproduct of already extracted .css)
+		}),
 		parts.extractCSS(PATHS.style),
 		parts.deduplicate()
 	);
@@ -127,6 +131,13 @@ default:
 			devtool: 'eval-source-map'
 		},
 
+		parts.indexTemplate({
+			title: 'Local Weather',
+			template: '!!pug!./app/index.pug',
+			inject: false,
+			mobile: true,
+			appMountId: "mount"
+		}),
 		parts.setupCSS(PATHS.style),
 		parts.devServer({
 			// Customize host/port here if needed

@@ -39,10 +39,14 @@ dump
 .imdone
 
 #ESLint config file
-.eslintrc.json
+.eslintrc
+.eslintignore
 
 #Stylelint config file
 .stylelintrc
+
+#Pug-lint config file
+.pug-lintrc
 
 #distribution ready files
 dist
