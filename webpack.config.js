@@ -1,3 +1,10 @@
+require('dotenv').config();
+const webpack = require('webpack');
+
+const includeAPIKey = new webpack.DefinePlugin({
+	"WUND_API_KEY": JSON.stringify(process.env.WUND_API_KEY)
+});
+
 const path = require('path');
 
 const merge = require('webpack-merge');
@@ -72,7 +79,11 @@ const common = {
   // an extension won't work anymore!
 	resolve: {
 		extensions: ['', '.js', '.jsx']
-	}
+	},
+
+	plugins: [
+		includeAPIKey
+	]
 };
 
 

@@ -1,6 +1,7 @@
 import React from 'react';
 
-import f from './geolocation';
+import promiseGeolocation from './requests/geolocation';
 
 // document.body.appendChild(component());
-f();
+promiseGeolocation().then(pos => console.log(pos.coords))
+.catch(err => console.log(err));
