@@ -1,0 +1,11 @@
+import axios from 'axios';
+
+export function getWeather(apiKey, query, ...features) {
+	console.log("REQUESTING:", `https://api.wunderground.com/api/${apiKey}/${features.join("/")}/q/${query}.json`);
+	return axios.get(`https://api.wunderground.com/api/${apiKey}/${features.join("/")}/q/${query}.json`);
+}
+
+export function autocomplete(query) {
+	console.log("REQUESTING:", `https://autocomplete.wunderground.com/aq?query=${query}`);
+	return axios.get(`https://autocomplete.wunderground.com/aq?query=${query}`);
+}

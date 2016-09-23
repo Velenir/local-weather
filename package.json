@@ -47,6 +47,7 @@
     "webpack-validator": "^2.2.7"
   },
   "dependencies": {
+    "axios": "^0.14.0",
     "react": "^15.3.1"
   }
 }
