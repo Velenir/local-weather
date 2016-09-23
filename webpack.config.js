@@ -126,7 +126,7 @@ case 'stats':
 			template: '!!pug!./app/index.pug',
 			inject: false,
 			mobile: true,
-			appMountId: "mount",
+			appMountId: "app",
 			inline: 'style',	// inline files from "style" chunk
 			excludeJSChunks: ['style']	// don't include specific chunks in scripts (when .js is a byproduct of already extracted .css)
 			// excludeJSWithCSS: true	// don't include any chunks with css in scripts (when .js is a byproduct of already extracted .css)
@@ -147,7 +147,7 @@ default:
 			template: '!!pug!./app/index.pug',
 			inject: false,
 			mobile: true,
-			appMountId: "mount"
+			appMountId: "app"
 		}),
 		parts.setupCSS(PATHS.style),
 		parts.devServer({
