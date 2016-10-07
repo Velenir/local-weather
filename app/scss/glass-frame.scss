@@ -1,0 +1,31 @@
+$frame-padding: 40px;
+
+.glass-frame {
+	width: -moz-fit-content;
+	width: -webkit-fit-content;
+	padding: $frame-padding;
+	position: relative;
+	margin: 30px auto;
+
+	&::before {
+		content: "";
+		width: 100%;
+		height: 100%;
+		background-color: white;
+		background-color: rgba(221, 179, 179, 0.3);
+		box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5), inset 0 50px 10px rgba(255, 255, 255, 0.2), inset 0 -15px 30px rgba(0, 0, 0, 0.4);
+		position: absolute;
+		top: 0;
+		left: 0;
+		z-index: -1;
+		border-radius: 15px;
+	}
+}
+
+.pinned {
+	border-style: hidden;
+	// border-width: 1px;
+	border-image-slice: 78%;
+	border-image-width: $frame-padding * 0.75;
+	border-image-source: radial-gradient(ellipse at center, rgba(255,255,255,1) 25%, rgba(249,249,249,1) 26%, rgba(192,192,192,0.24) 36%, rgba(192,192,192,0) 39%);
+}

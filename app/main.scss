@@ -1,7 +1,39 @@
+*, *::before, *::after {
+	box-sizing: border-box;
+	margin: 0;
+}
+
 $body-color: white;
 $body-gradient: repeating-linear-gradient(30deg, lightblue 1%, rgba(144, 238, 144, 0.41) 1.1%);
 $body-background: $body-gradient 0% 0%/ 10px 15px;
 
+html {
+	height: 100%;
+}
+
 body {
+	min-height: 100%;
+	display: flex;
+	flex-direction: column;
 	background: $body-background;
+}
+
+div, p, span {
+	outline: 1px dotted black;
+}
+
+.content {
+	flex: 1 0 auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+@import './scss/glass-frame', './scss/Location', './scss/Conditions';
+
+.central-pane {
+	width: 80%;
+	height: 80%;
+	text-shadow: 0 4px 9px gray;
 }

@@ -17,7 +17,7 @@ export default class App extends React.Component {
 
 	onFullfilled = ({data}) => {
 		console.log("DATA", data);
-		document.body.insertAdjacentHTML("beforeend", "<pre>" + JSON.stringify(data, null, 2) + "</pre>");
+		// document.body.insertAdjacentHTML("beforeend", "<pre>" + JSON.stringify(data, null, 2) + "</pre>");
 		this.setState(data);
 	}
 

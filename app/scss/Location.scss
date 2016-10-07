@@ -1,0 +1,15 @@
+.location {
+	box-shadow: 0 17px 11px -16px rgba(45, 42, 47, 0.62);
+	text-align: center;
+	background-color: rgba(158, 218, 224, 0.14);
+	padding: 5px;
+	font-size: 3em;
+
+	&__display {
+		margin-bottom: 0.2em;
+	}
+
+	&__observation {
+		font-size: 0.5em;
+	}
+}

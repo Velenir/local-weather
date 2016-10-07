@@ -1,0 +1,54 @@
+.conditions {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: center;
+	margin: 20px;
+	list-style: none;
+	font-size: 2em;
+
+	> * {
+		margin: 2%;
+		// box-shadow: inset 0 0 23px white, 0 0 26px 3px white;
+		// padding: 1.3em;
+		// border-radius: 5px;
+		// min-height: 9em;
+		min-width: 6em;
+	}
+
+	&__item {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		// justify-content: space-between;
+		// height: 100%;
+
+		> * {
+			margin: 5px;
+		}
+
+		> img {
+			height: 4em;
+			width: 4em;
+		}
+
+		.title {
+			font: bold 0.7em monospace;
+			text-transform: uppercase;
+		}
+
+		&--description {
+
+		}
+
+		&--temperature {
+			.reading {
+				font-size: 1.2em;
+				font-family: monospace;
+			}
+		}
+
+		&--wind {
+
+		}
+	}
+}

@@ -1,4 +1,9 @@
 extends ./layout.pug
 
+block head
+	link(href='https://fonts.googleapis.com/css?family=Reenie+Beanie', rel='stylesheet')
+
 block content
-	+appMount
+	.content
+		.central-pane.glass-frame.pinned
+			+appMount

@@ -1,9 +1,10 @@
 import React from 'react';
 
-export default ({weather, icon, icon_url}) => (
-	<div>
-		Description Component
-		<h2>{weather}</h2>
-		<img src={icon_url} alt={icon} />
+import {bemify} from '../helpers/bemify';
+
+export default ({weather, icon, icon_url, cls}) => (
+	<div className={bemify(cls, "--description")}>
+		<p className="title">{weather}</p>
+		<img className="reading" src={icon_url} alt={icon} />
 	</div>
 );
