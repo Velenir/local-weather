@@ -1,13 +1,13 @@
 import React from 'react';
+import InlineSVG from 'svg-inline-react';
 
 import {bemify} from '../helpers/bemify';
+import therm from '!!svg-inline!../images/thermometer.min.svg';
+
 
 const DEGREES = {CELSIUS: "°C", FAHRENHEIT: "°F"};
 
-const TempDisplay = ({temp, denom, switchDenom}) => <a href="#!" className="reading" onClick={switchDenom}>{temp + denom}</a>;
-
-
-export default class Temperature extends React.Component {
+class TempDisplay extends React.Component {
 	constructor(props) {
 		super(props);
 
@@ -26,8 +26,32 @@ export default class Temperature extends React.Component {
 
 	render() {
 		return (
+			<a href="#!" className="reading__value" onClick={this.switchDenom}>{this.state.temp + this.state.denom}</a>
+		);
+	}
+}
+
+
+export default class Temperature extends React.Component {
+	componentDidMount() {
+		// stroke-dashoffset from 0 to 60; consider middle as 0 °C
+		let dashoffset = 30 + this.props.temp_c;
+		if(dashoffset > 60) dashoffset = 60;
+		else if(dashoffset < 0) dashoffset = 0;
+
+		setTimeout(() => this.icon.querySelector("#merc").style.strokeDashoffset = dashoffset, 0);
+	}
+
+	render() {
+		return (
 			<div className={bemify(this.props.cls, "--temperature")}>
-				<p className="title">Temperature</p> <TempDisplay temp={this.state.temp} denom={this.state.denom} switchDenom={this.switchDenom} />
+				<p className="title">Temperature</p>
+				<div className="reading">
+					<div className="reading__icon" ref={c => this.icon = c}>
+						{<InlineSVG src={therm}/>}
+					</div>
+					<TempDisplay temp_c={this.props.temp_c} temp_f={this.props.temp_f} />
+				</div>
 			</div>
 		);
 	}

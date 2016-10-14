@@ -44,10 +44,7 @@
 		}
 
 		&--temperature {
-			.reading {
-				font-size: 1.2em;
-				font-family: monospace;
-			}
+
 		}
 
 		&--wind {
@@ -60,5 +57,22 @@
 	to {
 		filter: drop-shadow(5px 3px 3px gray);
 		transform: none;
+	}
+}
+
+.reading {
+	align-self: flex-start;
+	margin-left: 0.3em;
+
+	&__icon {
+		display: inline-block;
+		vertical-align: middle;
+		width: 2.5em;
+		filter: drop-shadow(3px 3px 2px gray);
+	}
+
+	&__value {
+		font-size: 1.2em;
+		font-family: monospace;
 	}
 }
