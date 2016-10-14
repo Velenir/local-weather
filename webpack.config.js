@@ -51,6 +51,12 @@ const common = {
 				// the entire project. In addition to being slow,
 				// that will most likely result in an error.
 				include: PATHS.app
+			},
+			{
+				test: /\.svg$/,
+				loaders: [
+					'file?name=img/[name].[hash].[ext]'
+				]
 			}
 		]
 	},
