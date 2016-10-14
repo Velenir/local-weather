@@ -41,6 +41,7 @@ dump
 #ESLint config file
 .eslintrc
 .eslintignore
+.eslintcache
 
 #Stylelint config file
 .stylelintrc
