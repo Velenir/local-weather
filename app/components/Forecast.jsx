@@ -4,6 +4,8 @@ import weatherIcon from '../images/weather.min.svg';
 import therm from '../images/thermometer.min.svg';
 import windsock from '../images/windsock.min.svg';
 
+import {DEGREES} from '../helpers';
+
 const Desc = ({conditions, icon}) => (
 	<div className="day__reading day__reading--desc">
 		<img src={weatherIcon+"#"+icon} alt={icon} />
@@ -11,15 +13,19 @@ const Desc = ({conditions, icon}) => (
 	</div>
 );
 
-const Temp = ({high, low}) => (
-	<div className="day__reading day__reading--temp">
-		<img src={therm} alt="thermometer" />
-		<div>
-			<p className="day__reading--temp__high">Day <span>{high.celsius}°C</span></p>
-			<p className="day__reading--temp__low">Night <span>{low.celsius}°C</span></p>
+const Temp = ({high, low, denom}) => {
+	const temp = denom === DEGREES.CELSIUS ? {high: high.celsius, low: low.celsius} : {high: high.fahrenheit, low: low.fahrenheit};
+
+	return (
+		<div className="day__reading day__reading--temp">
+			<img src={therm} alt="thermometer" />
+			<div>
+				<p className="day__reading--temp__high">Day <span>{temp.high}{denom}</span></p>
+				<p className="day__reading--temp__low">Night <span>{temp.low}{denom}</span></p>
+			</div>
 		</div>
-	</div>
-);
+	);
+};
 
 const Wind = ({mph, dir, degrees}) => (
 	<div className="day__reading day__reading--wind">
@@ -28,21 +34,21 @@ const Wind = ({mph, dir, degrees}) => (
 	</div>
 );
 
-const DayCast = ({date: {weekday_short, monthname_short, day}, high, low, conditions, icon, avewind}) => (
+const DayCast = ({date: {weekday_short, monthname_short, day}, high, low, denom, conditions, icon, avewind}) => (
 	<div className="forecast__day day">
 		<p className="day__date">{weekday_short}, {monthname_short} {day}</p>
 		<div className="day__readings">
 			<Desc conditions={conditions} icon={icon}/>
-			<Temp high={high} low={low}/>
+			<Temp high={high} low={low} denom={denom}/>
 			<Wind {...avewind}/>
 		</div>
 	</div>
 );
 
-export default ({days}) => (
+export default ({days, denom}) => (
 	<div className="forecast">
 		{days.map((day) =>(
-			<DayCast {...day} key={day.period}/>
+			<DayCast {...day} denom={denom} key={day.period}/>
 		))}
 	</div>
 );

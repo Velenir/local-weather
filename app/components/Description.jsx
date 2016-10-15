@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {bemify} from '../helpers/bemify';
+import {bemify} from '../helpers';
 import weatherIcon from '../images/weather.min.svg';
 
 export default ({weather, icon, cls}) => (

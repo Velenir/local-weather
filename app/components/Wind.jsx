@@ -1,6 +1,6 @@
 import React from 'react';
 
-import {bemify} from '../helpers/bemify';
+import {bemify} from '../helpers';
 import windsock from '../images/windsock.min.svg';
 
 export default class Wind extends React.Component {
