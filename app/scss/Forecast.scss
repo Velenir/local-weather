@@ -1,0 +1,57 @@
+.forecast {
+	font-size: 1.4em;
+	text-transform: uppercase;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	font-family: monospace;
+
+	&__day {
+		margin: 0.5em;
+		background-color: rgba(240, 248, 255, 0.19);
+		padding: 0.5em;
+		white-space: nowrap;
+		width: 12em;
+	}
+}
+
+.day {
+	&__date {
+		text-align: center;
+	}
+
+	&__reading {
+		margin-bottom: 0.4em;
+
+		img {
+			width: 3.5em;
+			height: 3.5em;
+			vertical-align: middle;
+			filter: drop-shadow(3px 3px 2px gray);
+		}
+
+		&--temp {
+			> img {
+				vertical-align: sub;
+			}
+
+			> div {
+				display: inline-block;
+				vertical-align: super;
+			}
+
+			&__high {
+				margin-bottom: .4em;
+			}
+
+			span {
+				float: right;
+				margin-left: 0.4em;
+			}
+		}
+
+		&--wind {
+
+		}
+	}
+}

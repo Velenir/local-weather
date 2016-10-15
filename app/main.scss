@@ -30,7 +30,7 @@ div, p, span {
 	align-items: center;
 }
 
-@import './scss/glass-frame', './scss/Location', './scss/Conditions';
+@import './scss/glass-frame', './scss/Location', './scss/Conditions', './scss/Forecast';
 
 .central-pane {
 	width: 80%;

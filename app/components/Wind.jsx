@@ -13,7 +13,6 @@ export default class Wind extends React.Component {
 
 	render() {
 		const {wind_dir, wind_mph, cls} = this.props;
-		console.log(this.props.wind_degrees);
 
 		return (
 			<div className={bemify(cls, "--wind")}>

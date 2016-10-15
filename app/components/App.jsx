@@ -2,6 +2,7 @@ import React from 'react';
 
 import Conditions from './Conditions';
 import Location from './Location';
+import Forecast from './Forecast';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -17,7 +18,7 @@ export default class App extends React.Component {
 
 	onFullfilled = ({data}) => {
 		console.log("DATA", data);
-		// document.body.insertAdjacentHTML("beforeend", "<pre>" + JSON.stringify(data, null, 2) + "</pre>");
+		document.body.insertAdjacentHTML("beforeend", "<pre>" + JSON.stringify(data, null, 2) + "</pre>");
 		this.setState(data);
 	}
 
@@ -36,6 +37,7 @@ export default class App extends React.Component {
 				App component
 				<Location {...this.state.current_observation} />
 				<Conditions {...this.state.current_observation} />
+				<Forecast days={this.state.forecast.simpleforecast.forecastday} />
 			</div>
 		);
 	}
