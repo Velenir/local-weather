@@ -5,6 +5,7 @@
 	flex-wrap: wrap;
 	justify-content: center;
 	font-family: monospace;
+	counter-reset: day;
 
 	&__day {
 		margin: 0.5em;
@@ -16,6 +17,24 @@
 }
 
 .day {
+	position: relative;
+	overflow: hidden;
+
+	&::before {
+		counter-increment: day;
+		content: counter(day);
+		position: absolute;
+		top: 0;
+		left: -1.8em;
+		width: 3.6em;
+		background-color: rgba(122, 133, 92, 0.64);
+		transform: rotate(-45deg);
+		text-align: center;
+		transform-origin: top center;
+		height: 1.8em;
+		line-height: 2.2em;
+	}
+
 	&__date {
 		text-align: center;
 	}
