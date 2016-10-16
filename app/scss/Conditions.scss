@@ -6,13 +6,12 @@
 	list-style: none;
 	font-size: 2em;
 	text-transform: uppercase;
-	box-shadow: 0 17px 11px -16px rgba(45, 42, 47, 0.62);
 
 	&__item {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		background-color: rgba(240, 248, 255, 0.19);
+		background-color: $item-color;
 		min-width: 6em;
 		margin: 2%;
 		white-space: nowrap;
@@ -24,25 +23,12 @@
 		> img {
 			height: 4em;
 			width: 4em;
-			// filter: drop-shadow(3px 3px 3px gray);
 			transform: scale(0.99);
 			animation: 1s dropShadow 1 forwards;
 		}
 
 		.title {
 			font: bold 0.7em monospace;
-		}
-
-		&--description {
-
-		}
-
-		&--temperature {
-
-		}
-
-		&--wind {
-
 		}
 	}
 }

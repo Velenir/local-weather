@@ -20,13 +20,6 @@ export default class App extends React.Component {
 		console.log("ERROR", err);
 	}
 
-	// switchDenom = () => {
-	// 	console.log("switchin degrees");
-	// 	this.setState(this.state.tempDenom === DEGREES.CELSIUS ?
-	// 		{temp: this.props.temp_f, tempDenom: DEGREES.FAHRENHEIT} :
-	// 		{temp: this.props.temp_c, tempDenom: DEGREES.CELSIUS});
-	// }
-
 	render() {
 		console.log("STATE:", this.state);
 		if (!this.state || !this.state.current_observation) {
@@ -35,7 +28,6 @@ export default class App extends React.Component {
 
 		return (
 			<div>
-				App component
 				<Location {...this.state.current_observation} />
 				<Conditions {...this.state.current_observation} />
 				<Forecast days={this.state.forecast.simpleforecast.forecastday} />

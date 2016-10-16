@@ -9,7 +9,7 @@
 
 	&__day {
 		margin: 0.5em;
-		background-color: rgba(240, 248, 255, 0.19);
+		background-color: $item-color;
 		padding: 0.5em;
 		white-space: nowrap;
 		width: 12.2em;
@@ -27,7 +27,7 @@
 		top: 0;
 		left: -1.8em;
 		width: 3.6em;
-		background-color: rgba(122, 133, 92, 0.64);
+		background-color: $day-corner-color;
 		transform: rotate(-45deg);
 		text-align: center;
 		transform-origin: top center;
@@ -68,10 +68,6 @@
 				float: right;
 				margin-left: 0.4em;
 			}
-		}
-
-		&--wind {
-
 		}
 	}
 }

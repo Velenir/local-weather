@@ -6,6 +6,9 @@
 $body-color: white;
 $body-gradient: repeating-linear-gradient(30deg, lightblue 1%, rgba(144, 238, 144, 0.41) 1.1%);
 $body-background: $body-gradient 0% 0%/ 10px 15px;
+$item-color: rgba(240, 248, 255, 0.19);
+$day-corner-color: rgba(122, 133, 92, 0.64);
+$top-panel-color: rgba(158, 218, 224, 0.34);
 
 html {
 	height: 100%;
@@ -36,4 +39,8 @@ div, p, span {
 	width: 80%;
 	height: 80%;
 	text-shadow: 0 4px 9px gray;
+}
+
+.panel:not(:last-child) {
+	box-shadow: 0 17px 11px -16px rgba(45, 42, 47, 0.62);
 }

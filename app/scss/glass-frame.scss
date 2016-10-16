@@ -24,7 +24,6 @@ $frame-padding: 40px;
 
 .pinned {
 	border-style: hidden;
-	// border-width: 1px;
 	border-image-slice: 78%;
 	border-image-width: $frame-padding * 0.75;
 	border-image-source: radial-gradient(ellipse at center, rgba(255,255,255,1) 25%, rgba(249,249,249,1) 26%, rgba(192,192,192,0.24) 36%, rgba(192,192,192,0) 39%);

@@ -1,5 +1,5 @@
 doctype html
-html(lang='en', manifest=htmlWebpackPlugin.files.manifest && htmlWebpackPlugin.files.manifest)
+html(lang='en', manifest=htmlWebpackPlugin.files.manifest)
 	include ./mixins.pug
 	head
 		meta(charset='utf-8')
@@ -17,6 +17,6 @@ html(lang='en', manifest=htmlWebpackPlugin.files.manifest && htmlWebpackPlugin.f
 
 		block content
 			+appMount
-		
+
 		+JS
 		block scripts

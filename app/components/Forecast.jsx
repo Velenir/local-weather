@@ -62,7 +62,7 @@ const DayCast = ({date: {weekday_short, monthname_short, day}, high, low, condit
 );
 
 export default ({days}) => (
-	<div className="forecast">
+	<div className="panel forecast">
 		{days.map((day) =>(
 			<DayCast {...day} key={day.period}/>
 		))}
