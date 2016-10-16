@@ -3,11 +3,12 @@ import React from 'react';
 import Conditions from './Conditions';
 import Location from './Location';
 import Forecast from './Forecast';
+import Search from './Search';
 
 
 export default class App extends React.Component {
 	componentDidMount() {
-		this.props.getWeather().then(this.onFullfilled, this.onRejected);
+		// this.props.getWeather().then(this.onFullfilled, this.onRejected);
 	}
 
 	onFullfilled = ({data}) => {
@@ -22,15 +23,16 @@ export default class App extends React.Component {
 
 	render() {
 		console.log("STATE:", this.state);
-		if (!this.state || !this.state.current_observation) {
-			return <div>Loading...</div>;
-		}
+		// if (!this.state || !this.state.current_observation) {
+		// 	return <div>Loading...</div>;
+		// }
 
 		return (
 			<div>
-				<Location {...this.state.current_observation} />
+				<Search getSuggestions={this.props.getSuggestions} />
+				{/*<Location {...this.state.current_observation} />
 				<Conditions {...this.state.current_observation} />
-				<Forecast days={this.state.forecast.simpleforecast.forecastday} />
+				<Forecast days={this.state.forecast.simpleforecast.forecastday} />*/}
 			</div>
 		);
 	}
