@@ -2,23 +2,24 @@ import React from 'react';
 import InlineSVG from 'svg-inline-react';
 
 import therm from '!!svg-inline!../images/thermometer.min.svg';
-import {DEGREES, bemify} from '../helpers';
+import {DEGREES, denomController, bemify} from '../helpers';
 
 
 class TempDisplay extends React.Component {
 	constructor(props) {
 		super(props);
 
-		// this.state = props.denom === DEGREES.CELSIUS ?
-		// 	{temp: props.temp_f, denom: DEGREES.FAHRENHEIT} :
-		// 	{temp: props.temp_c, denom: DEGREES.CELSIUS};
+		this.state = {
+			denom: denomController.denom
+		};
+		denomController.addComponent(this);
 	}
 
 	render() {
-		const temp = this.props.denom === DEGREES.CELSIUS ? this.props.temp_c : this.props.temp_f;
+		const temp = this.state.denom === DEGREES.CELSIUS ? this.props.temp_c : this.props.temp_f;
 
 		return (
-			<a href="#!" className="reading__value" onClick={this.props.switchDenom}>{temp + this.props.denom}</a>
+			<a href="#!" className="reading__value" onClick={denomController.switchDenom}>{temp + this.state.denom}</a>
 		);
 	}
 }
@@ -35,7 +36,7 @@ export default class Temperature extends React.Component {
 	}
 
 	render() {
-		const {cls, temp_c, temp_f, denom, switchDenom} = this.props;
+		const {cls, temp_c, temp_f} = this.props;
 
 		return (
 			<div className={bemify(cls, "--temperature")}>
@@ -44,7 +45,7 @@ export default class Temperature extends React.Component {
 					<div className="reading__icon" ref={c => this.icon = c}>
 						{<InlineSVG src={therm}/>}
 					</div>
-					<TempDisplay temp_c={temp_c} temp_f={temp_f} denom={denom} switchDenom={switchDenom}/>
+					<TempDisplay temp_c={temp_c} temp_f={temp_f} />
 				</div>
 			</div>
 		);

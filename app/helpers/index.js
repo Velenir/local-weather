@@ -1,2 +1,4 @@
 export {default as bemify} from './bemify';
-export {default as DEGREES} from './tempDegrees';
+export {DEGREES, denomController} from './tempDegrees';
+
+// export {DEGREES, tempDenom, switchDenom};
