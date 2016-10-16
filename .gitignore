@@ -38,9 +38,7 @@ dump
 #TODO local lists
 .imdone
 
-#ESLint config file
-.eslintrc
-.eslintignore
+#ESLint cache file
 .eslintcache
 
 #Stylelint config file
