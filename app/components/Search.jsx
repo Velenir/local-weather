@@ -1,9 +1,15 @@
 import React from 'react';
 import axios, {CancelToken} from 'axios';
 
+import AutocompleteInput from './AutocompleteInput';
+
 export default class Search extends React.Component {
 	constructor(props) {
 		super(props);
+
+		this.state = {
+			suggestions: []
+		};
 
 		this.promised = {
 			source: null,
@@ -11,21 +17,23 @@ export default class Search extends React.Component {
 		};
 	}
 
-	autocomplete = (e) => {
-		const val = e.target.value;
+	requestSuggestions = (partial) => {
 		if(this.promised.source) this.promised.source.cancel("Override with a New Request");
 
-		if(val === "") {
+		if(partial === "") {
 			this.promised.source = null;
+			this.setState({
+				results: [],
+				suggestions: []
+			});
 			return;
 		}
 
-		console.log(val.toUpperCase());
+		console.log(partial.toUpperCase());
 
 		this.promised.source = CancelToken.source();
-		this.lastInd = this;
 
-		this.props.getSuggestions(e.target.value, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
+		this.props.getSuggestions(partial, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
 	}
 
 	onFullfilled = (res) => {
@@ -33,7 +41,7 @@ export default class Search extends React.Component {
 		const data = res.data;
 		console.log(res.config.ind, this.promised.lastIndex);
 		if(res.config.ind  < this.promised.lastIndex) {
-			console.log("MORE REQUESTS PENDING, IGNORING");
+			console.log("NOT THE LAST REQUEST, IGNORING");
 			return;
 		}
 		console.log(res.config);
@@ -47,7 +55,10 @@ export default class Search extends React.Component {
 		} else {
 			document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
 		}
-		// this.setState(data);
+		this.setState({
+			results: data.RESULTS,
+			suggestions: data.RESULTS.map(sg => sg.name)
+		});
 	}
 
 	onRejected = (err) => {
@@ -62,9 +73,7 @@ export default class Search extends React.Component {
 
 	render() {
 		return (
-			<div>
-				<input type="search" onChange={this.autocomplete}/>
-			</div>
+			<AutocompleteInput suggestions={this.state.suggestions} requestSuggestions={this.requestSuggestions} input_attrs={{type: "search"}}/>
 		);
 	}
 }
