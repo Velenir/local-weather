@@ -1,15 +1,45 @@
 import React from 'react';
+import axios, {CancelToken} from 'axios';
 
 export default class Search extends React.Component {
-	autocomplete = (e) => {
-		const val = e.target.value;
-		if(val === "") return;
+	constructor(props) {
+		super(props);
 
-		this.props.getSuggestions(e.target.value).then(this.onFullfilled, this.onRejected);
+		this.promised = {
+			source: null,
+			lastIndex: 0
+		};
 	}
 
-	onFullfilled = ({data}) => {
-		console.log("DATA", data);
+	autocomplete = (e) => {
+		const val = e.target.value;
+		if(this.promised.source) this.promised.source.cancel("Override with a New Request");
+
+		if(val === "") {
+			this.promised.source = null;
+			return;
+		}
+
+		console.log(val.toUpperCase());
+
+		this.promised.source = CancelToken.source();
+		this.lastInd = this;
+
+		this.props.getSuggestions(e.target.value, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
+	}
+
+	onFullfilled = (res) => {
+
+		const data = res.data;
+		console.log(res.config.ind, this.promised.lastIndex);
+		if(res.config.ind  < this.promised.lastIndex) {
+			console.log("MORE REQUESTS PENDING, IGNORING");
+			return;
+		}
+		console.log(res.config);
+		console.log("DATA", data.RESULTS);
+
+		this.promised.source = null;
 
 		const pre = document.getElementById("autodata");
 		if(pre) {
@@ -21,7 +51,13 @@ export default class Search extends React.Component {
 	}
 
 	onRejected = (err) => {
-		console.log("ERROR", err);
+		this.promised.source = null;
+
+		if (axios.isCancel(err)) {
+			console.log("Request canceled", err.message);
+		} else {
+			console.log("ERROR", err);
+		}
 	}
 
 	render() {

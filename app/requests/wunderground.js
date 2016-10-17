@@ -5,7 +5,7 @@ export function getWeather(apiKey, query, ...features) {
 	return axios.get(`https://api.wunderground.com/api/${apiKey}/${features.join("/")}/q/${query}.json`);
 }
 
-export function autocomplete(query) {
+export function autocomplete(query, options = {}) {
 	console.log("REQUESTING:", `https://autocomplete.wunderground.com/aq?query=${query}`);
-	return axios.get(`https://crossorigin.me/https://autocomplete.wunderground.com/aq?query=${query}`);
+	return axios.get(`https://crossorigin.me/https://autocomplete.wunderground.com/aq?query=${query}`, options);
 }
