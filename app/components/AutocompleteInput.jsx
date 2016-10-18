@@ -8,8 +8,8 @@ export default class AutocompleteInput extends React.Component {
 	render() {
 		console.log(this.props);
 
-		const suggestions = this.props.suggestions && this.props.suggestions.map(sg => (
-			<li className="suggestion">{sg}</li>
+		const suggestions = this.props.suggestions && this.props.suggestions.map((sg, i) => (
+			<li className="suggestion" key={i}>{sg}</li>
 		));
 		return (
 			<div className="autocomplete">
