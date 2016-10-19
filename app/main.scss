@@ -33,7 +33,7 @@ div, p, span {
 	align-items: center;
 }
 
-@import './scss/glass-frame', './scss/Location', './scss/Conditions', './scss/Forecast';
+@import './scss/glass-frame', './scss/Location', './scss/Conditions', './scss/Forecast', './scss/AutocompleteInput';
 
 .central-pane {
 	width: 80%;

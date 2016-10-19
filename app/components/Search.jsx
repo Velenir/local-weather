@@ -37,12 +37,12 @@ export default class Search extends React.Component {
 			return;
 		}
 
-		console.log("DEBOUNCING for", partial.toUpperCase());
+		// console.log("DEBOUNCING for", partial.toUpperCase());
 		this.debouncedSendRequest(partial);
 	}
 
 	sendRequest = (query) => {
-		console.log("AUTOCOMPLETE", query.toUpperCase());
+		// console.log("AUTOCOMPLETE", query.toUpperCase());
 		this.promised.source = CancelToken.source();
 		this.props.getSuggestions(query, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
 	}
@@ -53,11 +53,11 @@ export default class Search extends React.Component {
 		console.log(res.config.ind, this.promised.lastIndex);
 		// discard late responses
 		if(res.config.ind  < this.promised.lastIndex) {
-			console.log("NOT THE LAST REQUEST, IGNORING");
+			// console.log("NOT THE LAST REQUEST, IGNORING");
 			return;
 		}
 		console.log(res.config);
-		console.log("DATA", data.RESULTS);
+		// console.log("DATA", data.RESULTS);
 
 		this.promised.source = null;
 

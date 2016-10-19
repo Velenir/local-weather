@@ -1,0 +1,45 @@
+.autocomplete {
+	display: inline-block;
+	position: relative;
+
+	// TODO move to Location
+	text-shadow: none;
+
+	&__input {
+		&:not(:focus) + .suggestions {
+			display: none;
+		}
+	}
+
+	&__suggestions {
+		position: absolute;
+		left: 0;
+		right: 0;
+		list-style: none;
+		padding-left: 0;
+		background-color: wheat;
+		white-space: nowrap;
+		max-height: 10em;
+	}
+}
+
+.suggestions {
+	list-style: none;
+	padding-left: 0;
+	background-color: rgb(235,225,217);
+	white-space: nowrap;
+	overflow: auto;
+	max-height: 10em;
+
+	&__item {
+		text-overflow: ellipsis;
+
+		/* width: 100%; */
+		overflow: hidden;
+
+		&.selected, &:hover {
+			// color: white;
+			background-color: #D6D6D6;
+		}
+	}
+}
