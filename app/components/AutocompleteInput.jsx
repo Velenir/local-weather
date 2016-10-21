@@ -96,6 +96,25 @@ export default class AutocompleteInput extends React.Component {
 		}
 	}
 
+	handleSuggestionClicked = (e) => {
+		// console.log(e.target, "clicked", e.currentTarget, e.nativeEvent.relatedTarget);
+		this.selected = e.target;
+
+		this.inputSuggestion(e.target);
+
+		console.log("SELECTED", this.selected);
+	}
+
+	inputSuggestion = (li = this.selected) => {
+		this.setState({
+			text: li.textContent,
+			selectedId: -1,
+			showSuggestion: false
+		});
+
+		this.input.focus();
+	}
+
 	render() {
 		// console.log(this.props);
 
@@ -105,23 +124,40 @@ export default class AutocompleteInput extends React.Component {
 		// // WORKS
 		// if(li.parentNode.clientHeight +li.parentNode.scrollTop < li.offsetTop || li.offsetTop +li.offsetHeight < li.parentNode.scrollTop) li.scrollIntoViewIfNeeded(false
 
-		const suggestions = this.props.suggestions.map((sg, i) => {
-			const props = i === this.state.activeInd ? {
-				className: "suggestions__item selected",
+		const suggestions = this.state.showSuggestion && (this.props.suggestions || []).map((sg, i) => {
+			const props = i === this.state.selectedId ? {
+				className: "suggestions__item suggestions__item--selected",
 				ref: this.scrollIntoViewIfNeeded
 			} : {
 				className: "suggestions__item"
 			};
 
-			return (<li {...props} key={i}>{sg}</li>);
+			return (<li {...props} key={i} onClick={this.handleSuggestionClicked} data-index={i}>{sg}</li>);
 		});
+
 		return (
 			<div className="autocomplete">
-				<input className="autocomplete__input" type="text" onChange={this.onChange} onKeyDown={this.onKeyDown} {...this.props.input_attrs}/>
+				<input className="autocomplete__input" type="text" value={this.state.text} onChange={this.handleChange} onKeyDown={this.handleKeyDown} {...this.props.input_attrs} ref={c => this.input = c}/>
 				<ul className="autocomplete__suggestions suggestions">
 					{suggestions}
 				</ul>
 			</div>
 		);
+	}
+
+	componentDidMount() {
+		console.log("AUTOCOMPLETEINPUT MOUNTED");
+	}
+	componentWillUnmount() {
+		console.log("AUTOCOMPLETEINPUT WILL UNMOUNT");
+	}
+	componentWillReceiveProps(nextProps) {
+		console.log("AUTOCOMPLETEINPUT WILL RECEIVE PROPS", nextProps);
+		this.setState({
+			showSuggestion: true
+		});
+	}
+	componentWillUpdate(nextProps, nextState) {
+		console.log("AUTOCOMPLETEINPUT WILL UPDATE", nextProps, nextState);
 	}
 }
