@@ -5,21 +5,23 @@
 	// TODO move to Location
 	text-shadow: none;
 
-	// &__input {
-	// 	&:not(:focus) + .suggestions {
-	// 		display: none;
-	// 	}
+	&__input:not(:focus) + &__suggestions {
+		display: none;
+	}
+	//
+	// &:active > &__suggestions {
+	// 	display: block;
 	// }
 
 	&__suggestions {
 		position: absolute;
 		left: 0;
 		right: 0;
-		list-style: none;
-		padding-left: 0;
-		background-color: wheat;
-		white-space: nowrap;
-		max-height: 10em;
+		top: 100%;
+
+		&:hover {
+			display: block !important;
+		}
 	}
 }
 
@@ -36,6 +38,7 @@
 
 		/* width: 100%; */
 		overflow: hidden;
+		cursor: pointer;
 
 		&--selected, &:hover {
 			// color: white;

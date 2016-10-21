@@ -115,6 +115,20 @@ export default class AutocompleteInput extends React.Component {
 		this.input.focus();
 	}
 
+	handleInputFocus = (e) => {
+		console.log("FOCUSED");
+		// this.forceUpdate();
+		console.log(document.activeElement);
+		console.log("FROM", e.nativeEvent);
+	}
+
+	handleInputBlur = (e) => {
+		console.log("BLURRED");
+		console.log(document.activeElement);
+		console.log("LOST TO", e.nativeEvent);
+		// this.setState
+	}
+
 	render() {
 		// console.log(this.props);
 
@@ -137,7 +151,7 @@ export default class AutocompleteInput extends React.Component {
 
 		return (
 			<div className="autocomplete">
-				<input className="autocomplete__input" type="text" value={this.state.text} onChange={this.handleChange} onKeyDown={this.handleKeyDown} {...this.props.input_attrs} ref={c => this.input = c}/>
+				<input className="autocomplete__input" type="text" {...this.props.input_attrs} value={this.state.text} onChange={this.handleChange} onKeyDown={this.handleKeyDown} onFocus={this.handleInputFocus} onBlur={this.handleInputBlur}  ref={c => this.input = c}/>
 				<ul className="autocomplete__suggestions suggestions">
 					{suggestions}
 				</ul>
