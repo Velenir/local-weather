@@ -5,11 +5,11 @@
 	// TODO move to Location
 	text-shadow: none;
 
-	&__input {
-		&:not(:focus) + .suggestions {
-			display: none;
-		}
-	}
+	// &__input {
+	// 	&:not(:focus) + .suggestions {
+	// 		display: none;
+	// 	}
+	// }
 
 	&__suggestions {
 		position: absolute;
@@ -37,7 +37,7 @@
 		/* width: 100%; */
 		overflow: hidden;
 
-		&.selected, &:hover {
+		&--selected, &:hover {
 			// color: white;
 			background-color: #D6D6D6;
 		}

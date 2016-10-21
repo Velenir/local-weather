@@ -56,8 +56,10 @@ export default class Search extends React.Component {
 			// console.log("NOT THE LAST REQUEST, IGNORING");
 			return;
 		}
-		console.log(res.config);
-		// console.log("DATA", data.RESULTS);
+		console.log(data, typeof data);
+		console.log("DATA", data.RESULTS, typeof data.RESULTS);
+
+		const results = data.RESULTS || [];
 
 		this.promised.source = null;
 
@@ -68,8 +70,8 @@ export default class Search extends React.Component {
 			document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
 		}
 		this.setState({
-			results: data.RESULTS,
-			suggestions: data.RESULTS.map(sg => sg.name)
+			results,
+			suggestions: results.map(sg => sg.name)
 		});
 	}
 
@@ -85,7 +87,7 @@ export default class Search extends React.Component {
 
 	render() {
 		return (
-			<AutocompleteInput suggestions={this.state.suggestions} requestSuggestions={this.requestSuggestions} input_attrs={{type: "search"}}/>
+			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} input_attrs={{type: "search"}}/>
 		);
 	}
 }
