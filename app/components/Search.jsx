@@ -85,9 +85,22 @@ export default class Search extends React.Component {
 		}
 	}
 
+	inputSubmitted = ({value, suggestionIndex}) => {
+		console.log("RECEIVED", {value, suggestionIndex});
+
+		value = value.trim();
+
+		if(value) {
+			if(suggestionIndex !== -1) {
+				// suggestion from results
+				const location = this.state.results[suggestionIndex];
+			}
+		}
+	}
+
 	render() {
 		return (
-			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} input_attrs={{type: "search"}}/>
+			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} submitInput={this.inputSubmitted} input_attrs={{type: "search"}}/>
 		);
 	}
 }
