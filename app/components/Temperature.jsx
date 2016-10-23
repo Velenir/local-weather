@@ -22,17 +22,29 @@ class TempDisplay extends React.Component {
 			<a href="#!" className="reading__value" onClick={denomController.switchDenom}>{temp + this.state.denom}</a>
 		);
 	}
+
+	componentWillUnmount() {
+		denomController.removeComponent(this);
+	}
 }
 
 
 export default class Temperature extends React.Component {
 	componentDidMount() {
+		setTimeout(this.animateDegreesDisplay, 0);
+	}
+
+	calculateDashoffset(celsius) {
 		// stroke-dashoffset from 0 to 60; consider middle as 0 °C
-		let dashoffset = 30 + this.props.temp_c;
+		let dashoffset = 30 + celsius;
 		if(dashoffset > 60) dashoffset = 60;
 		else if(dashoffset < 0) dashoffset = 0;
 
-		setTimeout(() => this.icon.querySelector("#merc").style.strokeDashoffset = dashoffset, 0);
+		return dashoffset;
+	}
+
+	animateDegreesDisplay = () => {
+		this.icon.querySelector("#merc").style.strokeDashoffset = this.calculateDashoffset(this.props.temp_c);
 	}
 
 	render() {
@@ -49,5 +61,9 @@ export default class Temperature extends React.Component {
 				</div>
 			</div>
 		);
+	}
+
+	componentDidUpdate() {
+		this.animateDegreesDisplay();
 	}
 }
