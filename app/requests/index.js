@@ -8,7 +8,11 @@ export function promiseWeather() {
 			console.log(err);
 			return "autoip";
 		}
-	).then(query => getWeather(WUND_API_KEY, query, "conditions", "forecast10day"));	// eslint-disable-line no-undef
+	).then(getWeatherAtLocation);
+}
+
+export function getWeatherAtLocation(location) {
+	return getWeather(WUND_API_KEY, location, "conditions", "forecast10day");	// eslint-disable-line no-undef
 }
 
 export {autocomplete as promiseAutocomplete} from './wunderground';
