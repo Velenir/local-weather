@@ -5,10 +5,17 @@ import windsock from '../images/windsock.min.svg';
 
 export default class Wind extends React.Component {
 	componentDidMount() {
+		setTimeout(this.animateDirectionDisplay, 0);
+	}
+
+	animateDirectionDisplay = () => {
 		// do the smaller arc
 		const degree = this.props.wind_degrees > 180 ? 360 - this.props.wind_degrees : this.props.wind_degrees;
+		this.icon.style.transform = `rotate(${degree}deg)`;
+	}
 
-		setTimeout(() => this.icon.style.transform = `rotate(${degree}deg)`, 0);
+	componentDidUpdate() {
+		this.animateDirectionDisplay();
 	}
 
 	render() {
