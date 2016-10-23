@@ -8,12 +8,19 @@ import Search from './Search';
 
 export default class App extends React.Component {
 	componentDidMount() {
-		// this.props.getWeather().then(this.onFullfilled, this.onRejected);
+		this.props.getWeather().then(this.onFullfilled, this.onRejected);
 	}
 
 	onFullfilled = ({data}) => {
-		console.log("DATA", data);
-		document.body.insertAdjacentHTML("beforeend", "<pre>" + JSON.stringify(data, null, 2) + "</pre>");
+		// console.log("DATA", data);
+
+		const pre = document.getElementById("autodata");
+		if(pre) {
+			pre.innerHTML = JSON.stringify(data, null, 2);
+		} else {
+			document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
+		}
+
 		this.setState(data);
 	}
 
@@ -21,18 +28,22 @@ export default class App extends React.Component {
 		console.log("ERROR", err);
 	}
 
+	getWeatherAt = (location) => {
+		this.props.getWeatherAt(location).then(this.onFullfilled, this.onRejected);
+	}
+
 	render() {
-		console.log("STATE:", this.state);
-		// if (!this.state || !this.state.current_observation) {
-		// 	return <div>Loading...</div>;
-		// }
+		// console.log("STATE:", this.state);
+		if (!this.state || !this.state.current_observation) {
+			return <div>Loading...</div>;
+		}
 
 		return (
 			<div>
-				<Search getSuggestions={this.props.getSuggestions} />
-				{/*<Location {...this.state.current_observation} />
+				<Search getSuggestions={this.props.getSuggestions} getWeatherAt={this.getWeatherAt}/>
+				<Location {...this.state.current_observation} />
 				<Conditions {...this.state.current_observation} />
-				<Forecast days={this.state.forecast.simpleforecast.forecastday} />*/}
+				<Forecast days={this.state.forecast.simpleforecast.forecastday} />
 			</div>
 		);
 	}

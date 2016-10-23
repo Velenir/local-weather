@@ -59,7 +59,7 @@ export default class Search extends React.Component {
 		console.log(data, typeof data);
 		console.log("DATA", data.RESULTS, typeof data.RESULTS);
 
-		const results = data.RESULTS || [];
+		const results = data.RESULTS ? data.RESULTS.filter(({type}) => type === "city") : [];
 
 		this.promised.source = null;
 
@@ -71,7 +71,7 @@ export default class Search extends React.Component {
 		}
 		this.setState({
 			results,
-			suggestions: results.map(sg => sg.name)
+			suggestions: results.map(({name}) => name)
 		});
 	}
 
@@ -93,8 +93,14 @@ export default class Search extends React.Component {
 		if(value) {
 			if(suggestionIndex !== -1) {
 				// suggestion from results
-				const location = this.state.results[suggestionIndex];
+				({l: value} = this.state.results[suggestionIndex]);
 			}
+
+			this.setState({
+				results: [],
+				suggestions: []
+			});
+			this.props.getWeatherAt(value);
 		}
 	}
 
