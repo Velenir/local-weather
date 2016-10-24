@@ -6,7 +6,7 @@ export default class AutocompleteInput extends React.Component {
 
 		this.state = {
 			selectedId: -1,
-			text: props.defaultText,
+			value: props.defaultValue,
 			// if suggestions given with initial props, display them
 			showSuggestion: props.suggestions.length > 0,
 			chosenSuggestion: -1
@@ -15,12 +15,12 @@ export default class AutocompleteInput extends React.Component {
 
 	static defaultProps = {
 		suggestions: [],
-		defaultText: ""
+		defaultValue: ""
 	}
 
 	handleChange = ({target: {value}}) => {
 		this.setState({
-			text: value,
+			value,
 			selectedId: -1,
 			showSuggestion: false,
 			chosenSuggestion: -1
@@ -55,7 +55,7 @@ export default class AutocompleteInput extends React.Component {
 					suggestionIndex = selectedId;
 					this.inputSuggestion();
 				} else {
-					({text: value, chosenSuggestion: suggestionIndex} = this.state);
+					({value, chosenSuggestion: suggestionIndex} = this.state);
 				}
 				this.props.submitInput({value, suggestionIndex});
 			}
@@ -100,7 +100,7 @@ export default class AutocompleteInput extends React.Component {
 
 	inputSuggestion = (li = this.selected) => {
 		this.setState({
-			text: li.textContent,
+			value: li.textContent,
 			selectedId: -1,
 			showSuggestion: false,
 			chosenSuggestion: +li.dataset.index
@@ -123,7 +123,7 @@ export default class AutocompleteInput extends React.Component {
 
 		return (
 			<div className="autocomplete">
-				<input className="autocomplete__input" type="text" {...this.props.input_attrs} value={this.state.text} onChange={this.handleChange} onKeyDown={this.handleKeyDown} ref={c => this.input = c}/>
+				<input className="autocomplete__input" type="text" {...this.props.input_attrs} value={this.state.value} onChange={this.handleChange} onKeyDown={this.handleKeyDown} ref={c => this.input = c}/>
 				<ul className="autocomplete__suggestions suggestions">
 					{suggestions}
 				</ul>

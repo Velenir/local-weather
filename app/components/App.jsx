@@ -38,12 +38,15 @@ export default class App extends React.Component {
 			return <div>Loading...</div>;
 		}
 
+		const {current_observation, current_observation: {display_location}, forecast} = this.state;
+
 		return (
 			<div>
-				<Search getSuggestions={this.props.getSuggestions} getWeatherAt={this.getWeatherAt}/>
-				<Location {...this.state.current_observation} />
-				<Conditions {...this.state.current_observation} />
-				<Forecast days={this.state.forecast.simpleforecast.forecastday} />
+				<Location {...current_observation} >
+					<Search getSuggestions={this.props.getSuggestions} getWeatherAt={this.getWeatherAt} initialLocation={display_location.full}/>
+				</Location>
+				<Conditions {...current_observation} />
+				<Forecast days={forecast.simpleforecast.forecastday} />
 			</div>
 		);
 	}

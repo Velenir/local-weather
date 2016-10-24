@@ -96,17 +96,14 @@ export default class Search extends React.Component {
 				({l: value} = this.state.results[suggestionIndex]);
 			}
 
-			this.setState({
-				results: [],
-				suggestions: []
-			});
-			this.props.getWeatherAt(value);
+
+			this.props.getWeatherAt(value.replace("/q", ""));
 		}
 	}
 
 	render() {
 		return (
-			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} submitInput={this.inputSubmitted} input_attrs={{type: "search"}}/>
+			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} submitInput={this.inputSubmitted} defaultValue={this.props.initialLocation} input_attrs={{type: "search"}}/>
 		);
 	}
 }
