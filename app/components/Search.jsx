@@ -10,13 +10,14 @@ export default class Search extends React.Component {
 		super(props);
 
 		this.state = {
-			results: [],
+			resultsMap: new Map(),
 			suggestions: []
 		};
 
 		this.promised = {
 			source: null,
-			lastIndex: 0
+			lastIndex: 0,
+			promise: null
 		};
 
 		this.debouncedSendRequest = debounce(this.sendRequest, 400);
@@ -30,7 +31,7 @@ export default class Search extends React.Component {
 
 		if(partial === "") {
 			this.setState({
-				results: [],
+				resultsMap: new Map(),
 				suggestions: []
 			});
 
@@ -44,7 +45,7 @@ export default class Search extends React.Component {
 	sendRequest = (query) => {
 		// console.log("AUTOCOMPLETE", query.toUpperCase());
 		this.promised.source = CancelToken.source();
-		this.props.getSuggestions(query, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
+		this.promised.promise = this.props.getSuggestions(query, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
 	}
 
 	onFullfilled = (res) => {
@@ -70,9 +71,11 @@ export default class Search extends React.Component {
 			document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
 		}
 		this.setState({
-			results,
+			resultsMap: new Map(results.map(res => [res.name, res])),
 			suggestions: results.map(({name}) => name)
 		});
+
+		return results;
 	}
 
 	onRejected = (err) => {
@@ -91,13 +94,22 @@ export default class Search extends React.Component {
 		value = value.trim();
 
 		if(value) {
-			if(suggestionIndex !== -1) {
-				// suggestion from results
-				({l: value} = this.state.results[suggestionIndex]);
+			const location = this.state.resultsMap.get(value);
+			// location was in the resultsMap
+			if(location) {
+				value = location.l.replace("/q", "");
+				this.props.getWeatherAt(value);
 			}
-
-
-			this.props.getWeatherAt(value.replace("/q", ""));
+			else {
+				// grab results from the last autocomplete promise (probably pending)
+				this.promised.promise.then(results => {
+					// if only one possible result
+					if(results.length === 1) {
+						this.props.getWeatherAt(results[0].l.replace("/q", ""));
+					}
+					// otherwise don't do anything, user will choose from the newly delivered suggestions
+				});
+			}
 		}
 	}
 
