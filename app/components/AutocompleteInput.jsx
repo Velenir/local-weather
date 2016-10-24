@@ -8,7 +8,7 @@ export default class AutocompleteInput extends React.Component {
 			selectedId: -1,
 			value: props.defaultValue,
 			// if suggestions given with initial props, display them
-			showSuggestion: props.suggestions.length > 0,
+			showSuggestions: props.suggestions.length > 0,
 			chosenSuggestion: -1
 		};
 	}
@@ -22,7 +22,7 @@ export default class AutocompleteInput extends React.Component {
 		this.setState({
 			value,
 			selectedId: -1,
-			showSuggestion: false,
+			showSuggestions: false,
 			chosenSuggestion: -1
 		});
 
@@ -102,7 +102,7 @@ export default class AutocompleteInput extends React.Component {
 		this.setState({
 			value: li.textContent,
 			selectedId: -1,
-			showSuggestion: false,
+			showSuggestions: false,
 			chosenSuggestion: +li.dataset.index
 		});
 
@@ -110,7 +110,7 @@ export default class AutocompleteInput extends React.Component {
 	}
 
 	render() {
-		const suggestions = this.state.showSuggestion && (this.props.suggestions || []).map((sg, i) => {
+		const suggestions = this.state.showSuggestions && (this.props.suggestions || []).map((sg, i) => {
 			const props = i === this.state.selectedId ? {
 				className: "suggestions__item suggestions__item--selected",
 				ref: this.scrollIntoViewIfNeeded
@@ -133,7 +133,7 @@ export default class AutocompleteInput extends React.Component {
 
 	componentWillReceiveProps() {
 		this.setState({
-			showSuggestion: true
+			showSuggestions: true
 		});
 	}
 }

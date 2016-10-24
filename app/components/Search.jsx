@@ -16,11 +16,10 @@ export default class Search extends React.Component {
 
 		this.promised = {
 			source: null,
-			lastIndex: 0,
-			promise: Promise.resolve()
+			lastIndex: 0
 		};
 
-		this.debouncedSendRequest = debounce(this.sendRequest, 400);
+		this.debouncedSendRequest = debounce(this.sendRequest, 400, false, this.promised);
 	}
 
 	requestSuggestions = (partial) => {
@@ -38,14 +37,15 @@ export default class Search extends React.Component {
 			return;
 		}
 
-		// console.log("DEBOUNCING for", partial.toUpperCase());
+		console.log("DEBOUNCING for", partial.toUpperCase());
 		this.debouncedSendRequest(partial);
 	}
 
 	sendRequest = (query) => {
 		// console.log("AUTOCOMPLETE", query.toUpperCase());
 		this.promised.source = CancelToken.source();
-		this.promised.promise = this.props.getSuggestions(query, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
+		console.log("SENDING REQUEST FOR", query);
+		this.props.getSuggestions(query, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
 	}
 
 	onFullfilled = (res) => {
@@ -71,7 +71,7 @@ export default class Search extends React.Component {
 			document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
 		}
 		this.setState({
-			resultsMap: new Map(results.map(res => [res.name, res])),
+			resultsMap: new Map(results.map(res => [res.name.toLowerCase(), res])),
 			suggestions: results.map(({name}) => name)
 		});
 
@@ -91,26 +91,42 @@ export default class Search extends React.Component {
 	inputSubmitted = ({value, suggestionIndex}) => {
 		console.log("RECEIVED", {value, suggestionIndex});
 
-		value = value.trim();
+		value = value.trim().toLowerCase();
 
 		if(value) {
 			const location = this.state.resultsMap.get(value);
 			// location was in the resultsMap
 			if(location) {
 				value = location.l.replace("/q", "");
+				console.log("location from results", value);
 				this.props.getWeatherAt(value);
+
+				this.setState({
+					suggestions: []
+				});
 			}
 			else {
-				// grab results from the last autocomplete promise (probably pending)
-				this.promised.promise.then(results => {
-					// if no results ever => value === initialLocation
-					if(!results) {
-						this.props.getWeatherAtCurrentLocation();
-					}
+				// cancel any pending requests
+				if(this.promised.source) {
+					this.promised.source.cancel("Override with a New Request");
+					this.promised.source = null;
+				}
+				// cancel debounce
+				if(this.promised.cancel) {console.log("deb cance fn",this.promised.cancel); this.promised.cancel();}
+				// make an immediate request for autocompletion
+				this.props.getSuggestions(value).then(this.onFullfilled, this.onRejected).then(results => {
+					console.log("from resuts", results);
+
 					// if only one possible result
-					else if(results.length === 1) {
-						this.props.getWeatherAt(results[0].l.replace("/q", ""));
-					}
+					if(results.length === 1) {
+						console.log("One result", results[0].name);
+						const {l, name} = results[0];
+						this.comp.setState({value: name});
+						this.props.getWeatherAt(l.replace("/q", ""));
+						this.setState({
+							suggestions: []
+						});
+					} else console.log("more results");
 					// otherwise don't do anything, user will choose from the newly delivered suggestions
 				});
 			}
@@ -119,7 +135,7 @@ export default class Search extends React.Component {
 
 	render() {
 		return (
-			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} submitInput={this.inputSubmitted} defaultValue={this.props.initialLocation} input_attrs={{type: "search"}}/>
+			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} submitInput={this.inputSubmitted} defaultValue={this.props.initialLocation} input_attrs={{type: "search"}} ref={c => this.comp = c}/>
 		);
 	}
 }
