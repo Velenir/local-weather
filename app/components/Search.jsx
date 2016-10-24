@@ -17,7 +17,7 @@ export default class Search extends React.Component {
 		this.promised = {
 			source: null,
 			lastIndex: 0,
-			promise: null
+			promise: Promise.resolve()
 		};
 
 		this.debouncedSendRequest = debounce(this.sendRequest, 400);
@@ -103,8 +103,12 @@ export default class Search extends React.Component {
 			else {
 				// grab results from the last autocomplete promise (probably pending)
 				this.promised.promise.then(results => {
+					// if no results ever => value === initialLocation
+					if(!results) {
+						this.props.getWeatherAtCurrentLocation();
+					}
 					// if only one possible result
-					if(results.length === 1) {
+					else if(results.length === 1) {
 						this.props.getWeatherAt(results[0].l.replace("/q", ""));
 					}
 					// otherwise don't do anything, user will choose from the newly delivered suggestions

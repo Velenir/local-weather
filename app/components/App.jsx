@@ -43,7 +43,7 @@ export default class App extends React.Component {
 		return (
 			<div>
 				<Location {...current_observation} >
-					<Search getSuggestions={this.props.getSuggestions} getWeatherAt={this.getWeatherAt} initialLocation={display_location.full}/>
+					<Search getSuggestions={this.props.getSuggestions} getWeatherAtCurrentLocation={this.props.getWeather} getWeatherAt={this.getWeatherAt} initialLocation={display_location.full}/>
 				</Location>
 				<Conditions {...current_observation} />
 				<Forecast days={forecast.simpleforecast.forecastday} />
