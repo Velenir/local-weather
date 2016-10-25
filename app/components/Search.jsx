@@ -114,11 +114,23 @@ export default class Search extends React.Component {
 				// cancel debounce
 				if(this.promised.cancel) {console.log("deb cance fn",this.promised.cancel); this.promised.cancel();}
 				// make an immediate request for autocompletion
-				this.props.getSuggestions(value).then(this.onFullfilled, this.onRejected).then(results => {
+				this.props.getSuggestions(value, {timeout: 1500}).then(this.onFullfilled, this.onRejected).then(results => {
 					console.log("from resuts", results);
-
+					// if last request errored
+					if(results == undefined) {
+						this.props.getWeatherAt(value).then(({response, current_observation, forecast}) => {
+							if(!current_observation && !forecast && response && response.results && response.results.length) {
+								const {l, name, country_name} = response.results[0];
+								this.comp.setState({value: `${name}, ${country_name}`});
+								this.props.getWeatherAt(l.replace("/q", ""));
+								this.setState({
+									suggestions: []
+								});
+							}
+						});
+					}
 					// if only one possible result
-					if(results.length === 1) {
+					else if(results.length === 1) {
 						console.log("One result", results[0].name);
 						const {l, name} = results[0];
 						this.comp.setState({value: name});

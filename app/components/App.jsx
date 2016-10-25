@@ -22,6 +22,8 @@ export default class App extends React.Component {
 		}
 
 		this.setState(data);
+
+		return data;
 	}
 
 	onRejected = (err) => {
@@ -29,7 +31,7 @@ export default class App extends React.Component {
 	}
 
 	getWeatherAt = (location) => {
-		this.props.getWeatherAt(location).then(this.onFullfilled, this.onRejected);
+		return this.props.getWeatherAt(location).then(this.onFullfilled, this.onRejected);
 	}
 
 	render() {
