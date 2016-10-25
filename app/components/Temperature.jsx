@@ -35,8 +35,8 @@ export default class Temperature extends React.Component {
 	}
 
 	calculateDashoffset(celsius) {
-		// stroke-dashoffset from 0 to 60; consider middle as 0 °C
-		let dashoffset = 30 + celsius;
+		// stroke-dashoffset from 0 to 60; consider middle as 0 °C, max (offset 60) as 40 °C and min (offset 0) as -40 °C
+		let dashoffset = 30 + Math.floor(celsius * 30 / 40);
 		if(dashoffset > 60) dashoffset = 60;
 		else if(dashoffset < 0) dashoffset = 0;
 
