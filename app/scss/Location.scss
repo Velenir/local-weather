@@ -11,4 +11,15 @@
 	&__observation {
 		font-size: 0.5em;
 	}
+
+	.autocomplete__input {
+		border: none;
+		text-align: center;
+		text-shadow: inherit;
+		background: linear-gradient(to bottom, rgba(41, 137, 216, 0.09) 95%,rgba(27, 64, 107, 0.59) 98%,#010810 100%);
+	}
+
+	.autocomplete__suggestions {
+		font-size: 0.8em;
+	}
 }

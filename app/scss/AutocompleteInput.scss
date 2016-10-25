@@ -1,23 +1,25 @@
+$suggestions-bcolor: white !default;
+$suggestions-selected-bcolor: #D6D6D6 !default;
+
 .autocomplete {
 	display: inline-block;
 	position: relative;
+	text-align: left;
 
-	// TODO move to Location
-	text-shadow: none;
+	&__input {
+		font: inherit;
+	}
 
 	&__input:not(:focus) + &__suggestions {
 		display: none;
 	}
-	//
-	// &:active > &__suggestions {
-	// 	display: block;
-	// }
 
 	&__suggestions {
 		position: absolute;
 		left: 0;
 		right: 0;
 		top: 100%;
+		z-index: 999;
 
 		&:hover {
 			display: block !important;
@@ -28,21 +30,18 @@
 .suggestions {
 	list-style: none;
 	padding-left: 0;
-	background-color: rgb(235,225,217);
+	background-color: $suggestions-bcolor;
 	white-space: nowrap;
 	overflow: auto;
 	max-height: 10em;
 
 	&__item {
 		text-overflow: ellipsis;
-
-		/* width: 100%; */
 		overflow: hidden;
 		cursor: pointer;
 
 		&--selected, &:hover {
-			// color: white;
-			background-color: #D6D6D6;
+			background-color: $suggestions-selected-bcolor;
 		}
 	}
 }
