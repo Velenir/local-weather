@@ -6,8 +6,7 @@ const WStation = ({location}) => <p className="location__observation"><small>wea
 
 export default ({display_location, observation_location, children}) => (
 	<div className="panel location">
-		<Location location={display_location}/>
-		{children}
+		{children || <Location location={display_location}/>}
 		<WStation location={observation_location}/>
 	</div>
 );
