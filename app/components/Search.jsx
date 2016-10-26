@@ -122,11 +122,11 @@ export default class Search extends React.Component {
 							if(!current_observation && !forecast && response && response.results && response.results.length) {
 								const {l, name, country_name} = response.results[0];
 								this.comp.setState({value: `${name}, ${country_name}`});
-								this.props.getWeatherAt(l.replace("/q", ""));
-								this.setState({
-									suggestions: []
-								});
+								this.props.getWeatherAt(l.replace("/q", ""));								
 							}
+							this.setState({
+								suggestions: []
+							});
 						});
 					}
 					// if only one possible result
