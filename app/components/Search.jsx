@@ -37,14 +37,11 @@ export default class Search extends React.Component {
 			return;
 		}
 
-		console.log("DEBOUNCING for", partial.toUpperCase());
 		this.debouncedSendRequest(partial);
 	}
 
 	sendRequest = (query) => {
-		// console.log("AUTOCOMPLETE", query.toUpperCase());
 		this.promised.source = CancelToken.source();
-		console.log("SENDING REQUEST FOR", query);
 		this.props.getSuggestions(query, {cancelToken: this.promised.source.token, ind: ++this.promised.lastIndex}).then(this.onFullfilled, this.onRejected);
 	}
 
@@ -53,21 +50,14 @@ export default class Search extends React.Component {
 		const data = res.data;
 		// discard late responses
 		if(res.config.ind  < this.promised.lastIndex) {
-			console.log("NOT THE LAST REQUEST, IGNORING");
+			// console.log("NOT THE LAST REQUEST, IGNORING");
 			return;
 		}
-		// console.log("DATA", data.RESULTS, typeof data.RESULTS);
 
 		const results = data.RESULTS ? data.RESULTS.filter(({type}) => type === "city") : [];
 
 		this.promised.source = null;
 
-		// const pre = document.getElementById("autodata");
-		// if(pre) {
-		// 	pre.innerHTML = JSON.stringify(data, null, 2);
-		// } else {
-		// 	document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
-		// }
 		this.setState({
 			resultsMap: new Map(results.map(res => [res.name.toLowerCase(), res])),
 			suggestions: results.map(({name}) => name)
@@ -86,9 +76,7 @@ export default class Search extends React.Component {
 		}
 	}
 
-	inputSubmitted = ({value, suggestionIndex}) => {
-		console.log("RECEIVED", {value, suggestionIndex});
-
+	inputSubmitted = ({value}) => {
 		value = value.trim().toLowerCase();
 
 		if(value) {
@@ -96,7 +84,6 @@ export default class Search extends React.Component {
 			// location was in the resultsMap
 			if(location) {
 				value = location.l.replace("/q", "");
-				console.log("location from results", value);
 				this.props.getWeatherAt(value);
 
 				this.setState({
@@ -131,13 +118,12 @@ export default class Search extends React.Component {
 					}
 					// if only one possible result
 					else if(results.length === 1) {
-						console.log("One result", results[0].name);
 						const {l} = results[0];
 						this.props.getWeatherAt(l.replace("/q", ""));
 						this.setState({
 							suggestions: []
 						});
-					} else console.log("more results");
+					}
 					// otherwise don't do anything, user will choose from the newly delivered suggestions
 				});
 			}

@@ -136,7 +136,7 @@ export default class AutocompleteInput extends React.Component {
 		if(nextProps.defaultValue !== this.props.defaultValue) {
 			nextState.value = nextProps.defaultValue;
 		}
-		
+
 		this.setState(nextState);
 	}
 }

@@ -12,16 +12,7 @@ export default class App extends React.Component {
 	}
 
 	onFullfilled = ({data}) => {
-
-		// const pre = document.getElementById("autodata");
-		// if(pre) {
-		// 	pre.innerHTML = JSON.stringify(data, null, 2);
-		// } else {
-		// 	document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
-		// }
-
 		this.setState(data);
-
 		return data;
 	}
 
@@ -34,7 +25,6 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		// console.log("STATE:", this.state);
 		if (!this.state || !this.state.current_observation) {
 			return <div>Loading...</div>;
 		}
