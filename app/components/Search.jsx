@@ -51,25 +51,23 @@ export default class Search extends React.Component {
 	onFullfilled = (res) => {
 
 		const data = res.data;
-		console.log(res.config.ind, this.promised.lastIndex);
 		// discard late responses
 		if(res.config.ind  < this.promised.lastIndex) {
-			// console.log("NOT THE LAST REQUEST, IGNORING");
+			console.log("NOT THE LAST REQUEST, IGNORING");
 			return;
 		}
-		console.log(data, typeof data);
-		console.log("DATA", data.RESULTS, typeof data.RESULTS);
+		// console.log("DATA", data.RESULTS, typeof data.RESULTS);
 
 		const results = data.RESULTS ? data.RESULTS.filter(({type}) => type === "city") : [];
 
 		this.promised.source = null;
 
-		const pre = document.getElementById("autodata");
-		if(pre) {
-			pre.innerHTML = JSON.stringify(data, null, 2);
-		} else {
-			document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
-		}
+		// const pre = document.getElementById("autodata");
+		// if(pre) {
+		// 	pre.innerHTML = JSON.stringify(data, null, 2);
+		// } else {
+		// 	document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
+		// }
 		this.setState({
 			resultsMap: new Map(results.map(res => [res.name.toLowerCase(), res])),
 			suggestions: results.map(({name}) => name)
@@ -112,7 +110,10 @@ export default class Search extends React.Component {
 					this.promised.source = null;
 				}
 				// cancel debounce
-				if(this.promised.cancel) {console.log("deb cance fn",this.promised.cancel); this.promised.cancel();}
+				if(this.promised.cancel) {
+					this.promised.cancel();
+				}
+
 				// make an immediate request for autocompletion
 				this.props.getSuggestions(value, {timeout: 1500}).then(this.onFullfilled, this.onRejected).then(results => {
 					console.log("from resuts", results);
@@ -122,7 +123,7 @@ export default class Search extends React.Component {
 							if(!current_observation && !forecast && response && response.results && response.results.length) {
 								const {l, name, country_name} = response.results[0];
 								this.comp.setState({value: `${name}, ${country_name}`});
-								this.props.getWeatherAt(l.replace("/q", ""));								
+								this.props.getWeatherAt(l.replace("/q", ""));
 							}
 							this.setState({
 								suggestions: []

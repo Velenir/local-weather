@@ -12,14 +12,13 @@ export default class App extends React.Component {
 	}
 
 	onFullfilled = ({data}) => {
-		// console.log("DATA", data);
 
-		const pre = document.getElementById("autodata");
-		if(pre) {
-			pre.innerHTML = JSON.stringify(data, null, 2);
-		} else {
-			document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
-		}
+		// const pre = document.getElementById("autodata");
+		// if(pre) {
+		// 	pre.innerHTML = JSON.stringify(data, null, 2);
+		// } else {
+		// 	document.body.insertAdjacentHTML("beforeend", "<pre id='autodata'>" + JSON.stringify(data, null, 2) + "</pre>");
+		// }
 
 		this.setState(data);
 
