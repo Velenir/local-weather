@@ -131,9 +131,12 @@ export default class AutocompleteInput extends React.Component {
 		);
 	}
 
-	componentWillReceiveProps() {
-		this.setState({
-			showSuggestions: true
-		});
+	componentWillReceiveProps(nextProps) {
+		const nextState = {showSuggestions: true};
+		if(nextProps.defaultValue !== this.props.defaultValue) {
+			nextState.value = nextProps.defaultValue;
+		}
+		
+		this.setState(nextState);
 	}
 }

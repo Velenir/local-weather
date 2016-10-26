@@ -121,8 +121,7 @@ export default class Search extends React.Component {
 					if(results == undefined) {
 						this.props.getWeatherAt(value).then(({response, current_observation, forecast}) => {
 							if(!current_observation && !forecast && response && response.results && response.results.length) {
-								const {l, name, country_name} = response.results[0];
-								this.comp.setState({value: `${name}, ${country_name}`});
+								const {l} = response.results[0];
 								this.props.getWeatherAt(l.replace("/q", ""));
 							}
 							this.setState({
@@ -133,8 +132,7 @@ export default class Search extends React.Component {
 					// if only one possible result
 					else if(results.length === 1) {
 						console.log("One result", results[0].name);
-						const {l, name} = results[0];
-						this.comp.setState({value: name});
+						const {l} = results[0];
 						this.props.getWeatherAt(l.replace("/q", ""));
 						this.setState({
 							suggestions: []
@@ -148,7 +146,7 @@ export default class Search extends React.Component {
 
 	render() {
 		return (
-			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} submitInput={this.inputSubmitted} defaultValue={this.props.initialLocation} input_attrs={{type: "search"}} ref={c => this.comp = c}/>
+			<AutocompleteInput suggestions={this.state.suggestions} updateSuggestions={this.requestSuggestions} submitInput={this.inputSubmitted} defaultValue={this.props.initialLocation} input_attrs={{type: "search"}}/>
 		);
 	}
 }
