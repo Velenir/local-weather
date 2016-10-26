@@ -40,8 +40,12 @@ div, p, span {
 
 .central-pane {
 	width: 80%;
-	height: 80%;
+	min-height: 80%;
 	text-shadow: 0 4px 9px gray;
+}
+
+.app-wrapper {
+	min-height: 80vh;
 }
 
 .panel:not(:last-child) {
