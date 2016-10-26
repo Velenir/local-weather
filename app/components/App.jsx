@@ -26,7 +26,7 @@ export default class App extends React.Component {
 
 	render() {
 		if (!this.state || !this.state.current_observation) {
-			return <div>Loading...</div>;
+			return <div className="loading spinner">Loading</div>;
 		}
 
 		const {current_observation, current_observation: {display_location}, forecast} = this.state;

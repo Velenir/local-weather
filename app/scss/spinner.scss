@@ -1,0 +1,25 @@
+.spinner {
+	position: relative;
+	min-width: 20px;
+	min-height: 20px;
+	display: inline-block;
+
+	&::after {
+		content: "";
+		position: absolute;
+		top: 0;
+		bottom: 0;
+		left: 0;
+		right: 0;
+		border: 4px dotted gray;
+		border-left-color: black;
+		border-radius: 50%;
+		animation: 1s linear infinite spin;
+	}
+}
+
+@keyframes spin {
+	to {
+		transform: rotate(360deg);
+	}
+}
