@@ -14,7 +14,6 @@
 		background-color: $item-color;
 		min-width: 6em;
 		margin: 2%;
-		white-space: nowrap;
 
 		> * {
 			margin: 5px;
@@ -54,5 +53,7 @@
 	&__value {
 		font-size: 1.2em;
 		font-family: monospace;
+		white-space: pre-wrap;
+		display: inline-block;
 	}
 }
