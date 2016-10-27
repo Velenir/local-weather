@@ -119,9 +119,11 @@ exports.minify = function() {
 	};
 };
 
-exports.setFreeVariable = function(key, value) {
+exports.setFreeVariables = function(definitions) {
 	const env = {};
-	env[key] = JSON.stringify(value);
+	for(let key of Object.keys(definitions)) {
+		env[key] = JSON.stringify(definitions[key]);
+	}
 
 	return {
 		plugins: [
