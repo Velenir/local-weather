@@ -7,5 +7,11 @@ export function getWeather(apiKey, query, ...features) {
 
 export function autocomplete(query, options = {}) {
 	// console.log("REQUESTING:", `https://autocomplete.wunderground.com/aq?query=${query.toLowerCase()}`);
-	return axios.get(`https://crossorigin.me/https://autocomplete.wunderground.com/aq?query=${query.toLowerCase()}`, options);
+	/* eslint-disable no-undef */
+	if(CROSSORIGIN_PREFIX) {
+		return axios.get(`${CROSSORIGIN_PREFIX}https://autocomplete.wunderground.com/aq?query=${query.toLowerCase()}`, options);
+	}
+	/* eslint-enable no-undef */
+
+	return axios.get(`https://autocomplete.wunderground.com/aq?query=${query.toLowerCase()}`, options);
 }

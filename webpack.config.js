@@ -117,10 +117,10 @@ case 'stats':
 		parts.clean(PATHS.build),
 
 		// NODE_ENV = 'production' allows for many react and uglify optimisations
-		parts.setFreeVariable(
-			'process.env.NODE_ENV',
-			'production'
-		),
+		parts.setFreeVariables({
+			'process.env.NODE_ENV': 'production',
+			'CROSSORIGIN_PREFIX': false
+		}),
 
 		parts.extractBundle({
 			name: 'vendor',
@@ -160,6 +160,9 @@ default:
 			// Customize host/port here if needed
 			host: process.env.HOST,
 			port: process.env.PORT
+		}),
+		parts.setFreeVariables({
+			'CROSSORIGIN_PREFIX': 'https://crossorigin.me/'
 		})
 	);
 }
