@@ -108,7 +108,7 @@ case 'stats':
 			output: {
 				path: PATHS.build,
 				// Tweak this to match your GitHub project name
-				// publicPath: '/webpack-demo/',
+				publicPath: '/local-weather/',
 				filename: 'js/[name].[chunkhash].js',
 				// This is used for require.ensure. The setup
 				// will work without but this is useful to set.
@@ -135,9 +135,9 @@ case 'stats':
 			inject: false,
 			mobile: true,
 			appMountId: "app",
-			inline: 'style',	// inline files from "style" chunk
+			// inline: 'style',	// inline files from "style" chunk
+			// excludeJSWithCSS: true,	// don't include any chunks with css in scripts (when .js is a byproduct of already extracted .css)
 			excludeJSChunks: ['style']	// don't include specific chunks in scripts (when .js is a byproduct of already extracted .css)
-			// excludeJSWithCSS: true	// don't include any chunks with css in scripts (when .js is a byproduct of already extracted .css)
 		}),
 		parts.extractCSS(PATHS.style),
 		parts.deduplicate()
