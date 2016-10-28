@@ -16,6 +16,7 @@ const parts = require('./libs/parts');
 const stylelint = require('stylelint');
 const autoprefixer = require('autoprefixer');
 
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 const PATHS = {
 	app: path.join(__dirname, 'app'),
@@ -88,7 +89,8 @@ const common = {
 	},
 
 	plugins: [
-		includeAPIKey
+		includeAPIKey,
+		new FaviconsWebpackPlugin("./app/logo.svg")
 	]
 };
 
