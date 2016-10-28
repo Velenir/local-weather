@@ -1,0 +1,32 @@
+.footer {
+	background: $footer-bcolor;
+	padding: 1em;
+	color: $footer-color;
+	font: 1.2em monospace;
+
+	a {
+		text-decoration: none;
+		color: unset;
+		font-weight: bold;
+
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+}
+
+.credits {
+	float: left;
+	list-style: none;
+}
+
+.provider {
+	float: right;
+	font-size: 1.2em;
+	text-transform: uppercase;
+
+	img {
+		width: 110px;
+		margin-left: 5px;
+	}
+}

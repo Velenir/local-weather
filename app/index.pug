@@ -4,6 +4,19 @@ block head
 	link(href='https://fonts.googleapis.com/css?family=Reenie+Beanie', rel='stylesheet')
 
 block content
-	.content
+	main.content
 		.central-pane.glass-frame.pinned
 			+appMount(class="app-wrapper")
+
+	footer.footer
+		ul.credits
+			li.credits__item Weather App by #[a(href="https://github.com/Velenir", target="_blank", rel="noopener noreferrer") Velenir]
+			li.credits__item Built with 
+				a(href="https://facebook.github.io/react/", target="_blank", rel="noopener noreferrer") React
+				|  and 
+				a(href="https://webpack.github.io/", target="_blank", rel="noopener noreferrer") WebPack
+				|  for #[a(href="https://www.freecodecamp.com/challenges/show-the-local-weather", target="_blank", rel="noopener noreferrer") FreeCodeCamp]
+			li.credits__item Code available on #[a(href="https://github.com/Velenir/local-weather/", target="_blank", rel="noopener noreferrer") GitHub]
+		p.provider Powered by
+			a(href="https://www.wunderground.com/", target="_blank", rel="noopener noreferrer")
+				img(src="https://icons.wxug.com/logos/PNG/wundergroundLogo_4c_horz.png", alt="wunderground")

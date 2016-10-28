@@ -15,6 +15,9 @@ $suggestions-selected-bcolor: #dac3c3;
 
 $spinner-size: 9rem;
 
+$footer-bcolor: rgba(192, 204, 214, 0.61);
+$footer-color: #0c1c42;
+
 html {
 	height: 100%;
 }
@@ -26,10 +29,6 @@ body {
 	background: $body-background;
 }
 
-div, p, span {
-	outline: 1px dotted black;
-}
-
 .content {
 	flex: 1 0 auto;
 	display: flex;
@@ -38,7 +37,7 @@ div, p, span {
 	align-items: center;
 }
 
-@import './scss/glass-frame', './scss/Location', './scss/Conditions', './scss/Forecast', './scss/AutocompleteInput', './scss/spinner';
+@import './scss/glass-frame', './scss/Location', './scss/Conditions', './scss/Forecast', './scss/AutocompleteInput', './scss/spinner', './scss/footer';
 
 .central-pane {
 	width: 80%;
@@ -47,7 +46,7 @@ div, p, span {
 }
 
 .app-wrapper {
-	min-height: 80vh;
+	min-height: 70vh;
 }
 
 .panel:not(:last-child) {
