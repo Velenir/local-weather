@@ -2,7 +2,8 @@ require('dotenv').config();
 const webpack = require('webpack');
 
 const includeAPIKey = new webpack.DefinePlugin({
-	"WUND_API_KEY": JSON.stringify(process.env.WUND_API_KEY)
+	"WUND_API_KEY": JSON.stringify(process.env.WUND_API_KEY),
+	"CROSSORIGIN_PREFIX": JSON.stringify("https://crossorigin.me/")
 });
 
 const path = require('path');
@@ -120,8 +121,7 @@ case 'stats':
 
 		// NODE_ENV = 'production' allows for many react and uglify optimisations
 		parts.setFreeVariables({
-			'process.env.NODE_ENV': 'production',
-			'CROSSORIGIN_PREFIX': false
+			'process.env.NODE_ENV': 'production'
 		}),
 
 		parts.extractBundle({
@@ -162,9 +162,6 @@ default:
 			// Customize host/port here if needed
 			host: process.env.HOST,
 			port: process.env.PORT
-		}),
-		parts.setFreeVariables({
-			'CROSSORIGIN_PREFIX': 'https://crossorigin.me/'
 		})
 	);
 }
