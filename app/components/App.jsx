@@ -25,15 +25,15 @@ export default class App extends React.Component {
 	}
 
 	render() {
-		if (!this.state || !this.state.current_observation) {
+		if(!this.state || !this.state.current_observation) {
 			return <div className="loading spinner">Loading</div>;
 		}
 
-		const {current_observation, current_observation: {display_location}, forecast} = this.state;
+		const {response, current_observation, current_observation: {display_location}, forecast} = this.state;
 
 		return (
 			<div>
-				<Location {...current_observation} >
+				<Location {...current_observation} response={response} >
 					<Search getSuggestions={this.props.getSuggestions} getWeatherAtCurrentLocation={this.props.getWeather} getWeatherAt={this.getWeatherAt} initialLocation={display_location.full}/>
 				</Location>
 				<Conditions {...current_observation} />

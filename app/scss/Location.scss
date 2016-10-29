@@ -10,6 +10,10 @@
 
 	&__observation {
 		font-size: 0.5em;
+
+		&--error {
+			color: #d23d3d;
+		}
 	}
 
 	.autocomplete {
