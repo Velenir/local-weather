@@ -102,9 +102,12 @@ mixin inject(filename, tag, searchWithin)
 
 	each file in files
 		- currentTag = tag || (file.endsWith(".css") ? "link" : file.endsWith(".js") ? "script" : "div");
-		- const attr = currentTag === "link" ? {href: file, rel: "stylesheet"} : currentTag === "script" ? {src: file} : {"data-src": file};
-
-		#{currentTag}&attributes(Object.assign({}, attributes, attr))
+		if currentTag === "link"
+			link(rel="stylesheet", href=file)&attributes(attributes)
+		else if currentTag === "script"
+			script(src=file)&attributes(attibutes)
+		else
+			#{currentTag}&attributes(attributes)
 
 		- injected.add(file);
 
