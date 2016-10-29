@@ -7,7 +7,6 @@ class DenomController {
 	}
 
 	switchDenom = () => {
-		console.log("switching degrees");
 		this.denom = this.denom === DEGREES.CELSIUS ? DEGREES.FAHRENHEIT : DEGREES.CELSIUS;
 
 		this.components.forEach(c => c.setState({

@@ -70,7 +70,7 @@ export default class Search extends React.Component {
 		this.promised.source = null;
 
 		if (axios.isCancel(err)) {
-			console.log("Request canceled", err.message);
+			// console.log("Request canceled", err.message);
 		} else {
 			console.log("ERROR", err);
 		}
@@ -103,7 +103,6 @@ export default class Search extends React.Component {
 
 				// make an immediate request for autocompletion
 				this.props.getSuggestions(value, {timeout: 1500}).then(this.onFullfilled, this.onRejected).then(results => {
-					console.log("from resuts", results);
 					// if last request errored
 					if(results == undefined) {
 						this.props.getWeatherAt(value).then(({response, current_observation, forecast}) => {
