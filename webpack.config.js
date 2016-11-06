@@ -126,7 +126,7 @@ case 'stats':
 
 		parts.extractBundle({
 			name: 'vendor',
-			entries: ['react']
+			entries: ['react', 'axios']
 		}),
 		parts.minify(),
 		parts.indexTemplate({
